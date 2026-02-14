@@ -1,41 +1,93 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Academics", path: "/academics" },
+    { name: "Contact", path: "/contact" },
+  ];
+
   return (
-    <header className="w-full bg-white shadow-sm sticky top-0 z-50">
-      <div className="container-custom flex items-center justify-between py-4">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white shadow-lg py-3"
+          : "bg-white/80 backdrop-blur-md py-4"
+      }`}
+    >
+      <div className="container mx-auto flex justify-between items-center px-6">
         
         {/* Logo */}
-        <div className="text-2xl font-bold text-primaryBlue">
-          Veebha International
+        <Link to="/" className="text-2xl font-bold">
+          <span className="bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 bg-clip-text text-transparent">
+            Vibha Preschool
+          </span>
+        </Link>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex space-x-8 items-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`relative font-medium transition duration-300 ${
+                location.pathname === link.path
+                  ? "text-pink-500"
+                  : "text-gray-700 hover:text-pink-500"
+              }`}
+            >
+              {link.name}
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-pink-500 transition-all duration-300 hover:w-full"></span>
+            </Link>
+          ))}
+
+          <Link
+            to="/contact"
+            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 transition duration-300"
+          >
+            Admission
+          </Link>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8 font-medium text-gray-700">
-          <Link to="/" className="hover:text-primaryBlue transition">
-            Home
-          </Link>
-          <Link to="/about" className="hover:text-primaryBlue transition">
-            About
-          </Link>
-          <Link to="/academics" className="hover:text-primaryBlue transition">
-            Academics
-          </Link>
-          <Link to="/contact" className="hover:text-primaryBlue transition">
-            Contact
-          </Link>
-        </nav>
-
-        {/* CTA Button */}
-        <Link
-          to="/contact"
-          className="hidden md:inline-block bg-primaryOrange text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90 transition"
+        {/* Mobile Button */}
+        <button
+          className="md:hidden text-gray-700"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          Admissions Open
-        </Link>
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
-    </header>
-  );
-};
 
-export default Navbar;
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-lg px-6 py-6 space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              onClick={() => setIsOpen(false)}
+              className="block text-gray-700 hover:text-pink-500 transition"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
