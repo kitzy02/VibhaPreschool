@@ -45,14 +45,17 @@ export default function Navbar() {
             <Link
               key={link.name}
               to={link.path}
-              className={`relative font-medium transition duration-300 ${
+              className={`group relative font-medium transition duration-300 ${
                 location.pathname === link.path
                   ? "text-pink-500"
                   : "text-gray-700 hover:text-pink-500"
               }`}
             >
               {link.name}
-              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-pink-500 transition-all duration-300 hover:w-full"></span>
+              {/* Animated underline */}
+              <span className={`absolute left-0 -bottom-1 h-0.5 bg-pink-500 transition-all duration-300 ${
+                location.pathname === link.path ? "w-full" : "w-0 group-hover:w-full"
+              }`}></span>
             </Link>
           ))}
 
@@ -81,7 +84,9 @@ export default function Navbar() {
               key={link.name}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className="block text-gray-700 hover:text-pink-500 transition"
+              className={`block font-medium transition ${
+                location.pathname === link.path ? "text-pink-500" : "text-gray-700 hover:text-pink-500"
+              }`}
             >
               {link.name}
             </Link>

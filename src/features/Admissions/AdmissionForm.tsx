@@ -1,4 +1,6 @@
+// src/features/Admissions/AdmissionForm.tsx
 import { useState } from "react";
+// Ensure this path is correct based on your folder structure
 import Button from "../../components/Button";
 
 export default function AdmissionForm() {
@@ -14,6 +16,7 @@ export default function AdmissionForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form Data:", formData);
     alert("Admission form submitted!");
   };
 
@@ -25,35 +28,44 @@ export default function AdmissionForm() {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="parentName"
-            placeholder="Parent Name"
-            className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-pink-400"
-            onChange={handleChange}
-            required
-          />
+          <div className="space-y-1">
+            <label className="text-sm font-semibold text-gray-600">Parent Name</label>
+            <input
+              type="text"
+              name="parentName"
+              placeholder="Enter parent name"
+              className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-pink-400"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <input
-            type="text"
-            name="childName"
-            placeholder="Child Name"
-            className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-400"
-            onChange={handleChange}
-            required
-          />
+          <div className="space-y-1">
+            <label className="text-sm font-semibold text-gray-600">Child Name</label>
+            <input
+              type="text"
+              name="childName"
+              placeholder="Enter child name"
+              className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-400"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            onChange={handleChange}
-            required
-          />
+          <div className="space-y-1">
+            <label className="text-sm font-semibold text-gray-600">Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Enter phone number"
+              className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <div className="text-center">
-            <Button text="Submit Application" />
+          <div className="text-center mt-8">
+            <Button text="Submit Application" type="submit" />
           </div>
         </form>
       </div>

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import the styles for AOS
+import AdmissionForm from "../features/Admissions/AdmissionForm"
+import CurriculumSection from "../features/Curriculum/CurriculumSection"
+import GalleryGrid from "../features/Gallery/GalleryGrid"
+
 
 const Home = () => {
   useEffect(() => {
@@ -34,7 +38,7 @@ const Home = () => {
             </h1>
 
             <p className="mt-6 text-lg text-gray-600 max-w-xl">
-              At Veebha International, we nurture young minds through
+              At Vibha International, we nurture young minds through
               Montessori, Playway, and an International Syllabus —
               building strong foundations from Kindergarten to 5th Class.
             </p>
@@ -61,7 +65,7 @@ const Home = () => {
                 to="/about"
                 className="text-primaryBlue font-semibold hover:underline inline-flex items-center"
               >
-                Read More About Veebha →
+                Read More About Vibha →
               </Link>
             </div>
           </motion.div>
@@ -182,6 +186,14 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* Curriculum Preview */}
+      <CurriculumSection />
+
+      {/* Gallery Preview */}
+      <GalleryGrid />
+
+      {/* CTA Admission */}
+      <AdmissionForm />
     </>
   );
 };

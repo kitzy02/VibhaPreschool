@@ -1,5 +1,4 @@
 import Card from "../../components/Card";
-import classroom from "../../assets/classroom.jpg";
 
 export default function CurriculumSection() {
   return (
@@ -13,17 +12,14 @@ export default function CurriculumSection() {
           <Card
             title="Play-Based Learning"
             description="Interactive activities that develop creativity, imagination, and teamwork."
-            image={classroom}
           />
           <Card
             title="Language & Literacy"
             description="Building strong communication skills through storytelling and phonics."
-            image={classroom}
           />
           <Card
             title="STEM Foundations"
             description="Hands-on experiments and discovery-based science learning."
-            image={classroom}
           />
         </div>
       </div>

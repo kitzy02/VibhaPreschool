@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import CurriculumSection from "../features/Curriculum/CurriculumSection"
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -27,6 +28,10 @@ const Academics = () => {
           A balanced curriculum combining Montessori principles, Playway methods,
           and structured primary education for strong academic foundations.
         </p>
+        <div>
+          <h1>Our Academics</h1>
+          <CurriculumSection />
+        </div>
       </section>
 
       {/* CURRICULUM OVERVIEW */}
