@@ -1,218 +1,412 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 // Feature imports
 import AdmissionForm from "../features/Admissions/AdmissionForm";
 import CurriculumSection from "../features/Curriculum/CurriculumSection";
 import GalleryGrid from "../features/Gallery/GalleryGrid";
 
-// Component imports - FIXED: Changed from './components/' to '../components/'
+// Component imports
 import AgeGroupSelector from "../components/AgeGroupSelector";
 import TestimonialCarousel from "../components/TestimonialCarousel";
 import CountdownTimer from "../components/CountdownTimer";
 import FloatingCTA from "../components/FloatingCTA";
 
 const Home = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
-
   return (
     <>
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-white">
-        {/* Decorative Background Blobs */}
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primaryOrange opacity-20 rounded-full blur-3xl"></div>
-        <div className="absolute top-40 -right-20 w-80 h-80 bg-earlyGreen opacity-20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-accentYellow opacity-20 rounded-full blur-3xl"></div>
+      {/* 1. HERO SECTION - Enhanced with proper colors and animations */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-cream-50 via-white to-lavender-50">
+        {/* Decorative Background Blobs - Updated colors */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-coral-300 opacity-20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-40 -right-20 w-80 h-80 bg-mint-300 opacity-20 rounded-full blur-3xl animate-float animation-delay-500"></div>
+        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-sunshine-300 opacity-20 rounded-full blur-3xl animate-pulse-slow"></div>
 
-        <div className="container mx-auto px-4 py-24 lg:py-32 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-          {/* LEFT SIDE */}
+        <div className="container mx-auto px-4 py-20 sm:py-24 lg:py-32 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+          {/* LEFT SIDE - Enhanced with proper responsive text */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-4xl lg:text-6xl font-bold leading-tight text-gray-800">
+            {/* Heading with proper responsive sizing */}
+            <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight text-charcoal-600">
               Learning Begins with
-              <span className="block text-primaryBlue">Joy & Confidence</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-sunset mt-2">
+                Joy & Confidence
+              </span>
             </h1>
 
-            <p className="mt-6 text-lg text-gray-600 max-w-xl">
+            {/* Description with better spacing */}
+            <p className="font-body mt-6 text-base sm:text-lg text-charcoal-400 max-w-xl leading-relaxed">
               At Vibha International, we nurture young minds through
               Montessori, Playway, and an International Syllabus —
               building strong foundations from Kindergarten to 5th Class.
             </p>
 
+            {/* CTA Buttons with proper styling */}
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/contact"
-                className="bg-primaryOrange text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition-transform"
+                className="btn-primary group"
+                aria-label="Apply for admissions"
               >
-                Admissions Open
+                <span>Admissions Open</span>
+                <span className="text-xl group-hover:scale-110 transition-transform">🎉</span>
               </Link>
 
               <Link
                 to="/academics"
-                className="bg-primaryBlue text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:scale-105 transition-transform"
+                className="btn-secondary group"
+                aria-label="Explore our academic programs"
               >
-                Explore Academics
+                <span>Explore Academics</span>
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </Link>
             </div>
             
-            {/* Read More Link */}
+            {/* Read More Link - FIXED COLOR CONTRAST */}
             <div className="mt-6">
               <Link
                 to="/about"
-                className="text-primaryBlue font-semibold hover:underline inline-flex items-center"
+                className="inline-flex items-center gap-2 font-semibold text-coral-500 hover:text-coral-600 transition-colors group"
+                aria-label="Read more about Vibha International"
               >
-                Read More About Vibha →
+                <span>Read More About Vibha</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT SIDE - Enhanced card with gradient border */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
-              <h3 className="text-2xl font-semibold text-primaryBlue">
+            {/* Decorative gradient ring */}
+            <div className="absolute -inset-1 bg-gradient-rainbow opacity-30 rounded-3xl blur-lg"></div>
+            
+            <div className="relative bg-white rounded-3xl shadow-strong p-8 sm:p-10 border border-charcoal-100">
+              <h3 className="font-heading font-semibold text-2xl text-skyBlue-500 mb-6">
                 Holistic Learning Environment
               </h3>
 
-              <ul className="mt-6 space-y-4 text-gray-600">
-                <li>• Montessori & Playway Method</li>
-                <li>• Integrated International Syllabus</li>
-                <li>• Weekly Assessments</li>
-                <li>• Excellent Student-Teacher Ratio</li>
-                <li>• Hands-on Activities</li>
-                <li>• Online School Option</li>
+              <ul className="space-y-4 font-body text-charcoal-500">
+                {[
+                  "🎨 Montessori & Playway Method",
+                  "🌍 Integrated International Syllabus",
+                  "📊 Weekly Assessments",
+                  "👥 Excellent Student-Teacher Ratio",
+                  "✋ Hands-on Activities",
+                  "💻 Online School Option"
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-cream-50 transition-colors"
+                  >
+                    <span className="text-lg">{item.split(' ')[0]}</span>
+                    <span>{item.substring(item.indexOf(' ') + 1)}</span>
+                  </motion.li>
+                ))}
               </ul>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 2. AGE GROUP SELECTOR */}
-      <section>
+      {/* 2. AGE GROUP SELECTOR - With entrance animation */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         <AgeGroupSelector />
-      </section>
+      </motion.section>
 
-      {/* 3. PRESCHOOL VS PRIMARY SECTION */}
-      <section className="py-20 bg-gray-50">
+      {/* 3. PRESCHOOL VS PRIMARY SECTION - Enhanced with better colors */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-cream-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-charcoal-600 mb-4">
               Building Strong Foundations for Every Stage
             </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+            <p className="font-body text-base sm:text-lg text-charcoal-400 max-w-2xl mx-auto leading-relaxed">
               From joyful early learning experiences to structured primary education,
               we support every child's growth journey.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Early Years */}
-            <div className="bg-white rounded-3xl shadow-lg p-10 border-t-8 border-earlyGreen hover:shadow-xl transition">
-              <h3 className="text-2xl font-bold text-earlyGreen mb-6">
-                Early Years (Preschool)
-              </h3>
-              <ul className="space-y-4 text-gray-600">
-                <li>• Montessori Method</li>
-                <li>• Playway Learning</li>
-                <li>• Hands-on Activities</li>
-                <li>• Holistic Development</li>
-                <li>• Safe & Caring Environment</li>
-              </ul>
-            </div>
+          {/* Cards Grid */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-10 max-w-6xl mx-auto">
+            {/* Early Years Card - FIXED GRADIENT */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group relative"
+            >
+              {/* Gradient border effect - INLINE STYLE FOR WORKING GRADIENT */}
+              <div 
+                className="absolute -inset-1 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur"
+                style={{
+                  background: 'linear-gradient(to right, #26C6B8, #00BFA5)'
+                }}
+              ></div>
+              
+              <div className="relative bg-white rounded-3xl shadow-lg p-8 sm:p-10 border-t-8 border-mint-500 hover:shadow-2xl transition-all">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-4xl">🌱</span>
+                  <h3 className="font-heading font-bold text-2xl sm:text-3xl text-mint-600">
+                    Early Years (Preschool)
+                  </h3>
+                </div>
+                
+                <ul className="space-y-3 font-body text-charcoal-500">
+                  {[
+                    "Montessori Method",
+                    "Playway Learning",
+                    "Hands-on Activities",
+                    "Holistic Development",
+                    "Safe & Caring Environment"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-mint-500 mt-1">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
 
-            {/* Primary School */}
-            <div className="bg-white rounded-3xl shadow-lg p-10 border-t-8 border-primaryBlue hover:shadow-xl transition">
-              <h3 className="text-2xl font-bold text-primaryBlue mb-6">
-                Primary School (1st – 5th)
-              </h3>
-              <ul className="space-y-4 text-gray-600">
-                <li>• Integrated International Syllabus</li>
-                <li>• Weekly Assessments</li>
-                <li>• Structured Academic Curriculum</li>
-                <li>• Excellent Student-Teacher Ratio</li>
-                <li>• Online School Option</li>
-              </ul>
-            </div>
+            {/* Primary School Card - FIXED GRADIENT */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group relative"
+            >
+              {/* Gradient border effect - INLINE STYLE FOR WORKING GRADIENT */}
+              <div 
+                className="absolute -inset-1 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur"
+                style={{
+                  background: 'linear-gradient(to right, #42A5F5, #2196F3)'
+                }}
+              ></div>
+              
+              <div className="relative bg-white rounded-3xl shadow-lg p-8 sm:p-10 border-t-8 border-skyBlue-500 hover:shadow-2xl transition-all">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-4xl">📚</span>
+                  <h3 className="font-heading font-bold text-2xl sm:text-3xl text-skyBlue-600">
+                    Primary School (1st – 5th)
+                  </h3>
+                </div>
+                
+                <ul className="space-y-3 font-body text-charcoal-500">
+                  {[
+                    "Integrated International Syllabus",
+                    "Weekly Assessments",
+                    "Structured Academic Curriculum",
+                    "Excellent Student-Teacher Ratio",
+                    "Online School Option"
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-skyBlue-500 mt-1">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* 4. SPECIAL FEATURES SECTION */}
-      <section className="relative py-24 bg-gradient-to-br from-pink-100 via-yellow-50 to-blue-100 overflow-hidden">
+      {/* 4. SPECIAL FEATURES SECTION - FIXED WITH INLINE GRADIENTS */}
+      <section className="relative py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-lavender-50 via-sunshine-50 to-coral-50 overflow-hidden">
         {/* Floating Animated Background Shapes */}
-        <div className="absolute top-10 left-10 w-40 h-40 bg-pink-300 opacity-30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-52 h-52 bg-yellow-300 opacity-30 rounded-full blur-3xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-blue-300 opacity-20 rounded-full blur-3xl animate-ping"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 bg-coral-300 opacity-30 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-52 h-52 bg-sunshine-300 opacity-30 rounded-full blur-3xl animate-float animation-delay-500"></div>
+        <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-lavender-300 opacity-20 rounded-full blur-3xl animate-pulse-slow"></div>
 
-        <div className="relative max-w-7xl mx-auto px-6 text-center">
-          <h2 data-aos="fade-up" className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
-            🌟 Our Special Features
-          </h2>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl text-charcoal-600 mb-4">
+              <span className="inline-block animate-bounce-slow">🌟</span> Our Special Features
+            </h2>
+            <p className="font-body text-base sm:text-lg text-charcoal-400 mb-12 sm:mb-16 max-w-2xl mx-auto">
+              A joyful environment designed to nurture creativity, learning, and growth.
+            </p>
+          </motion.div>
 
-          <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-gray-600 mb-16 max-w-2xl mx-auto">
-            A joyful environment designed to nurture creativity, learning, and growth.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-10">
-            {/* Card 1 */}
-            <div data-aos="fade-up" data-aos-delay="300" className="group relative p-[3px] rounded-3xl bg-gradient-to-r from-pink-400 via-purple-400 to-yellow-400">
-              <div className="bg-white h-full rounded-3xl p-10 shadow-xl transition duration-500 group-hover:shadow-pink-300 group-hover:shadow-2xl group-hover:-translate-y-3">
-                <div className="text-6xl mb-6 transform group-hover:rotate-6 group-hover:scale-110 transition duration-500">🎨</div>
-                <h3 className="text-2xl font-bold mb-4 text-pink-500">Creative Activities</h3>
-                <p className="text-gray-600">Art, crafts, music, and storytelling to spark imagination and creativity.</p>
+          {/* Feature Cards Grid - FIXED GRADIENTS */}
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            {/* Card 1: Creative Activities - CORAL */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0, duration: 0.5 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative"
+            >
+              {/* FIXED: Inline gradient instead of dynamic class */}
+              <div 
+                className="absolute -inset-1 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur"
+                style={{
+                  background: 'linear-gradient(to right, #FF4081, #F50057)'
+                }}
+              ></div>
+              
+              <div className="relative bg-white h-full rounded-3xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all">
+                {/* Emoji Icon */}
+                <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                  🎨
+                </div>
+                
+                {/* Title - FIXED COLOR */}
+                <h3 className="font-heading font-bold text-xl sm:text-2xl mb-4 text-coral-600">
+                  Creative Activities
+                </h3>
+                
+                {/* Description */}
+                <p className="font-body text-charcoal-500 leading-relaxed">
+                  Art, crafts, music, and storytelling to spark imagination and creativity.
+                </p>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Card 2 */}
-            <div data-aos="fade-up" data-aos-delay="500" className="group relative p-[3px] rounded-3xl bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400">
-              <div className="bg-white h-full rounded-3xl p-10 shadow-xl transition duration-500 group-hover:shadow-yellow-300 group-hover:shadow-2xl group-hover:-translate-y-3">
-                <div className="text-6xl mb-6 transform group-hover:rotate-6 group-hover:scale-110 transition duration-500">🧩</div>
-                <h3 className="text-2xl font-bold mb-4 text-yellow-500">Smart Learning</h3>
-                <p className="text-gray-600">Play-based learning methods that make education fun, interactive, and effective.</p>
+            {/* Card 2: Smart Learning - SUNSHINE */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative"
+            >
+              {/* FIXED: Inline gradient */}
+              <div 
+                className="absolute -inset-1 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur"
+                style={{
+                  background: 'linear-gradient(to right, #FFC107, #FF9800)'
+                }}
+              ></div>
+              
+              <div className="relative bg-white h-full rounded-3xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all">
+                <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                  🧩
+                </div>
+                
+                <h3 className="font-heading font-bold text-xl sm:text-2xl mb-4 text-sunshine-500">
+                  Smart Learning
+                </h3>
+                
+                <p className="font-body text-charcoal-500 leading-relaxed">
+                  Play-based learning methods that make education fun, interactive, and effective.
+                </p>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Card 3 */}
-            <div data-aos="fade-up" data-aos-delay="700" className="group relative p-[3px] rounded-3xl bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400">
-              <div className="bg-white h-full rounded-3xl p-10 shadow-xl transition duration-500 group-hover:shadow-blue-300 group-hover:shadow-2xl group-hover:-translate-y-3">
-                <div className="text-6xl mb-6 transform group-hover:rotate-6 group-hover:scale-110 transition duration-500">🛡️</div>
-                <h3 className="text-2xl font-bold mb-4 text-blue-500">Safe Environment</h3>
-                <p className="text-gray-600">Secure campus, caring staff, hygienic surroundings, and complete child safety.</p>
+            {/* Card 3: Safe Environment - SKYBLUE */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative"
+            >
+              {/* FIXED: Inline gradient */}
+              <div 
+                className="absolute -inset-1 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur"
+                style={{
+                  background: 'linear-gradient(to right, #42A5F5, #2196F3)'
+                }}
+              ></div>
+              
+              <div className="relative bg-white h-full rounded-3xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all">
+                <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                  🛡️
+                </div>
+                
+                <h3 className="font-heading font-bold text-xl sm:text-2xl mb-4 text-skyBlue-600">
+                  Safe Environment
+                </h3>
+                
+                <p className="font-body text-charcoal-500 leading-relaxed">
+                  Secure campus, caring staff, hygienic surroundings, and complete child safety.
+                </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* 5. CURRICULUM PREVIEW */}
-      <CurriculumSection />
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <CurriculumSection />
+      </motion.section>
 
       {/* 6. GALLERY PREVIEW */}
-      <GalleryGrid />
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <GalleryGrid />
+      </motion.section>
 
       {/* 7. TESTIMONIALS */}
-      <TestimonialCarousel />
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <TestimonialCarousel />
+      </motion.section>
 
       {/* 8. COUNTDOWN TO ADMISSION DEADLINE */}
-      <CountdownTimer targetDate={new Date('2025-03-31')} />
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <CountdownTimer targetDate={new Date('2025-03-31')} />
+      </motion.section>
 
       {/* 9. ADMISSION FORM / CTA */}
-      <AdmissionForm />
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <AdmissionForm />
+      </motion.section>
 
       {/* 10. FLOATING CTA BUTTON */}
       <FloatingCTA />

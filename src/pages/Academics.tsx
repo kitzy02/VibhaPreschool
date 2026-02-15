@@ -6,6 +6,30 @@ import {
   Clock, CheckCircle, Star, Calendar, Play
 } from "lucide-react";
 
+// Color mappings - ADDED: Real hex colors for inline styles
+const colorMap = {
+  coral: {
+    bg: '#FF4081',
+    bgLight: '#FFCCE0',
+    bgHex: '#F50057'
+  },
+  sunshine: {
+    bg: '#FFC107',
+    bgLight: '#FFF3C4',
+    bgHex: '#FF9800'
+  },
+  skyBlue: {
+    bg: '#42A5F5',
+    bgLight: '#BBDEFB',
+    bgHex: '#2196F3'
+  },
+  lavender: {
+    bg: '#AB47BC',
+    bgLight: '#E1BEE7',
+    bgHex: '#9C27B0'
+  }
+};
+
 // Program data
 const programs = [
   {
@@ -151,7 +175,7 @@ const teachingMethods = [
   {
     name: "Montessori Method",
     description: "Child-led learning with specially designed materials that encourage independence and exploration.",
-    color: "from-coral-400 to-rose-500",
+    gradient: "linear-gradient(135deg, #FF4081 0%, #F06292 100%)",
     icon: <Target className="w-8 h-8" />,
     benefits: [
       "Self-directed learning",
@@ -163,7 +187,7 @@ const teachingMethods = [
   {
     name: "Play-Way Technique",
     description: "Learning through play with activities that make education fun and engaging for young minds.",
-    color: "from-sunshine-400 to-orange-500",
+    gradient: "linear-gradient(135deg, #FFC107 0%, #FF9800 100%)",
     icon: <Heart className="w-8 h-8" />,
     benefits: [
       "Learning through play",
@@ -175,7 +199,7 @@ const teachingMethods = [
   {
     name: "STEAM Education",
     description: "Integrated approach combining Science, Technology, Engineering, Arts, and Mathematics.",
-    color: "from-skyBlue-400 to-mint-400",
+    gradient: "linear-gradient(135deg, #42A5F5 0%, #26C6B8 100%)",
     icon: <Lightbulb className="w-8 h-8" />,
     benefits: [
       "Critical thinking",
@@ -187,7 +211,7 @@ const teachingMethods = [
   {
     name: "Project-Based Learning",
     description: "Students work on real-world projects that develop collaboration and presentation skills.",
-    color: "from-lavender-400 to-coral-400",
+    gradient: "linear-gradient(135deg, #AB47BC 0%, #FF4081 100%)",
     icon: <Users className="w-8 h-8" />,
     benefits: [
       "Real-world problems",
@@ -197,6 +221,18 @@ const teachingMethods = [
     ]
   },
 ];
+
+// Schedule type color mapping
+const scheduleColors = {
+  learning: '#42A5F5',
+  break: '#FFC107',
+  play: '#26C6B8',
+  activity: '#FF4081',
+  rest: '#AB47BC',
+  assembly: '#95A5A6',
+  closing: '#607D8B',
+  study: '#2196F3'
+};
 
 export default function EnhancedAcademics() {
   const [selectedProgram, setSelectedProgram] = useState("nursery");
@@ -241,7 +277,10 @@ export default function EnhancedAcademics() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
               >
-                <div className="inline-flex p-3 bg-gradient-sunset rounded-xl text-white mb-3">
+                <div 
+                  className="inline-flex p-3 rounded-xl text-white mb-3"
+                  style={{ background: 'linear-gradient(135deg, #FF6B9D 0%, #FF9A3C 100%)' }}
+                >
                   {stat.icon}
                 </div>
                 <div className="text-3xl font-heading font-bold text-charcoal-600 mb-1">
@@ -270,30 +309,33 @@ export default function EnhancedAcademics() {
           </p>
         </motion.div>
 
-        {/* Program Selector Tabs */}
+        {/* Program Selector Tabs - FIXED WITH INLINE STYLES */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {programs.map((program) => (
-            <button
-              key={program.id}
-              onClick={() => setSelectedProgram(program.id)}
-              className={`
-                px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300
-                ${selectedProgram === program.id
-                  ? `bg-${program.color}-400 text-white shadow-xl scale-110`
-                  : 'bg-white text-charcoal-600 hover:shadow-lg hover:scale-105'
-                }
-              `}
-              style={{
-                backgroundColor: selectedProgram === program.id ? `var(--color-${program.color}-400)` : 'white',
-                color: selectedProgram === program.id ? 'white' : undefined,
-              }}
-            >
-              <span className="flex items-center gap-2">
-                {program.icon}
-                {program.name}
-              </span>
-            </button>
-          ))}
+          {programs.map((program) => {
+            const isSelected = selectedProgram === program.id;
+            const colors = colorMap[program.color as keyof typeof colorMap];
+            
+            return (
+              <button
+                key={program.id}
+                onClick={() => setSelectedProgram(program.id)}
+                className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
+                style={{
+                  backgroundColor: isSelected ? colors.bg : 'white',
+                  color: isSelected ? 'white' : '#2C3E50',
+                  transform: isSelected ? 'scale(1.1)' : 'scale(1)',
+                  boxShadow: isSelected 
+                    ? `0 10px 30px -10px ${colors.bg}` 
+                    : '0 2px 8px rgba(0,0,0,0.1)'
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  {program.icon}
+                  {program.name}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Program Content */}
@@ -310,11 +352,12 @@ export default function EnhancedAcademics() {
               <div className="flex items-start gap-6 mb-6">
                 <div 
                   className="p-4 rounded-2xl"
-                  style={{ backgroundColor: `var(--color-${currentProgram.color}-100)` }}
+                  style={{ 
+                    backgroundColor: colorMap[currentProgram.color as keyof typeof colorMap].bgLight,
+                    color: colorMap[currentProgram.color as keyof typeof colorMap].bgHex
+                  }}
                 >
-                  <div style={{ color: `var(--color-${currentProgram.color}-500)` }}>
-                    {currentProgram.icon}
-                  </div>
+                  {currentProgram.icon}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-3xl font-heading font-bold text-charcoal-600 mb-2">
@@ -326,7 +369,7 @@ export default function EnhancedAcademics() {
                 </div>
               </div>
               
-              <p className="text-charcoal-400 text-lg leading-relaxed mb-8">
+              <p className="text-charcoal-500 text-lg leading-relaxed mb-8">
                 {currentProgram.overview}
               </p>
 
@@ -343,7 +386,7 @@ export default function EnhancedAcademics() {
                     >
                       <CheckCircle 
                         className="w-5 h-5 flex-shrink-0 mt-1" 
-                        style={{ color: `var(--color-${currentProgram.color}-500)` }}
+                        style={{ color: colorMap[currentProgram.color as keyof typeof colorMap].bgHex }}
                       />
                       <span className="text-charcoal-600">{objective}</span>
                     </div>
@@ -368,16 +411,17 @@ export default function EnhancedAcademics() {
                   >
                     <div 
                       className="inline-flex p-3 rounded-xl mb-4"
-                      style={{ backgroundColor: `var(--color-${currentProgram.color}-100)` }}
+                      style={{ 
+                        backgroundColor: colorMap[currentProgram.color as keyof typeof colorMap].bgLight,
+                        color: colorMap[currentProgram.color as keyof typeof colorMap].bgHex
+                      }}
                     >
-                      <div style={{ color: `var(--color-${currentProgram.color}-500)` }}>
-                        {subject.icon}
-                      </div>
+                      {subject.icon}
                     </div>
                     <h5 className="font-heading font-bold text-lg text-charcoal-600 mb-2">
                       {subject.name}
                     </h5>
-                    <p className="text-sm text-charcoal-400">
+                    <p className="text-sm text-charcoal-500">
                       {subject.description}
                     </p>
                   </motion.div>
@@ -406,15 +450,9 @@ export default function EnhancedAcademics() {
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
                         <span 
-                          className="w-3 h-3 rounded-full"
+                          className="w-3 h-3 rounded-full flex-shrink-0"
                           style={{
-                            backgroundColor: 
-                              slot.type === 'learning' ? 'var(--color-skyBlue-400)' :
-                              slot.type === 'break' ? 'var(--color-sunshine-400)' :
-                              slot.type === 'play' ? 'var(--color-mint-400)' :
-                              slot.type === 'activity' ? 'var(--color-coral-400)' :
-                              slot.type === 'rest' ? 'var(--color-lavender-400)' :
-                              'var(--color-charcoal-300)'
+                            backgroundColor: scheduleColors[slot.type as keyof typeof scheduleColors] || '#95A5A6'
                           }}
                         ></span>
                         <span className="text-charcoal-600">{slot.activity}</span>
@@ -427,16 +465,16 @@ export default function EnhancedAcademics() {
               {/* Legend */}
               <div className="mt-6 pt-6 border-t flex flex-wrap gap-4">
                 {[
-                  { type: 'learning', color: 'skyBlue', label: 'Learning' },
-                  { type: 'break', color: 'sunshine', label: 'Break' },
-                  { type: 'play', color: 'mint', label: 'Play' },
-                  { type: 'activity', color: 'coral', label: 'Activity' },
-                  { type: 'rest', color: 'lavender', label: 'Rest' },
+                  { type: 'learning', color: '#42A5F5', label: 'Learning' },
+                  { type: 'break', color: '#FFC107', label: 'Break' },
+                  { type: 'play', color: '#26C6B8', label: 'Play' },
+                  { type: 'activity', color: '#FF4081', label: 'Activity' },
+                  { type: 'rest', color: '#AB47BC', label: 'Rest' },
                 ].map((item) => (
                   <div key={item.type} className="flex items-center gap-2">
                     <span 
                       className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: `var(--color-${item.color}-400)` }}
+                      style={{ backgroundColor: item.color }}
                     ></span>
                     <span className="text-sm text-charcoal-400">{item.label}</span>
                   </div>
@@ -485,11 +523,17 @@ export default function EnhancedAcademics() {
               >
                 <div className="relative h-full">
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${method.color} rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity`}></div>
+                  <div 
+                    className="absolute inset-0 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
+                    style={{ background: method.gradient }}
+                  ></div>
                   
                   {/* Card content */}
                   <div className="relative bg-white rounded-3xl p-8 shadow-xl h-full">
-                    <div className={`inline-flex p-4 bg-gradient-to-br ${method.color} rounded-2xl text-white mb-6`}>
+                    <div 
+                      className="inline-flex p-4 rounded-2xl text-white mb-6"
+                      style={{ background: method.gradient }}
+                    >
                       {method.icon}
                     </div>
                     
@@ -497,7 +541,7 @@ export default function EnhancedAcademics() {
                       {method.name}
                     </h3>
                     
-                    <p className="text-charcoal-400 leading-relaxed mb-6">
+                    <p className="text-charcoal-500 leading-relaxed mb-6">
                       {method.description}
                     </p>
 
@@ -505,8 +549,8 @@ export default function EnhancedAcademics() {
                       <h4 className="font-semibold text-charcoal-600 mb-3">Key Benefits:</h4>
                       {method.benefits.map((benefit) => (
                         <div key={benefit} className="flex items-center gap-2">
-                          <Star className="w-4 h-4 text-sunshine-400 fill-current" />
-                          <span className="text-sm text-charcoal-500">{benefit}</span>
+                          <Star className="w-4 h-4 text-sunshine-400 fill-current flex-shrink-0" />
+                          <span className="text-sm text-charcoal-600">{benefit}</span>
                         </div>
                       ))}
                     </div>

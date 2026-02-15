@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Baby, Palette, BookOpen, GraduationCap } from "lucide-react";
-
+import { useNavigate } from "react-router-dom"; // Added import
 interface AgeGroup {
   id: string;
   name: string;
   ageRange: string;
   color: string;
   bgColor: string;
+  solidColor: string; 
+  solidBgColor: string; 
   icon: React.ReactNode;
   activities: string[];
 }
@@ -25,6 +27,8 @@ const ageGroups: AgeGroup[] = [
     ageRange: "1.5 - 2.5 years",
     color: "coral-500",
     bgColor: "coral-100",
+    solidColor: "#F50057", 
+    solidBgColor: "#FFCCE0", 
     icon: <Baby className="w-8 h-8" />,
     activities: ["Sensory Play", "Music & Movement", "Basic Colors"],
   },
@@ -34,6 +38,8 @@ const ageGroups: AgeGroup[] = [
     ageRange: "2.5 - 3.5 years",
     color: "sunshine-500",
     bgColor: "sunshine-100",
+    solidColor: "#FF9800", 
+    solidBgColor: "#FFF3C4", 
     icon: <Palette className="w-8 h-8" />,
     activities: ["Arts & Crafts", "Story Time", "Number Basics"],
   },
@@ -43,6 +49,8 @@ const ageGroups: AgeGroup[] = [
     ageRange: "3.5 - 4.5 years",
     color: "skyBlue-500",
     bgColor: "skyBlue-100",
+    solidColor: "#2196F3", 
+    solidBgColor: "#BBDEFB", 
     icon: <BookOpen className="w-8 h-8" />,
     activities: ["Phonics", "Simple Math", "Creative Writing"],
   },
@@ -52,6 +60,8 @@ const ageGroups: AgeGroup[] = [
     ageRange: "4.5+ years",
     color: "lavender-500",
     bgColor: "lavender-100",
+    solidColor: "#9C27B0", 
+    solidBgColor: "#E1BEE7", 
     icon: <GraduationCap className="w-8 h-8" />,
     activities: ["Full Curriculum", "Projects", "Sports & Arts"],
   },
@@ -63,6 +73,7 @@ export default function AgeGroupSelector({
   className = "",
 }: AgeGroupSelectorProps) {
   const [selected, setSelected] = useState(selectedGroup);
+  const navigate = useNavigate(); // Added initialization
 
   const handleSelect = (groupId: string) => {
     setSelected(groupId);
@@ -108,48 +119,40 @@ export default function AgeGroupSelector({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleSelect(group.id)}
-              className={`
-                relative flex flex-col items-center justify-center
-                w-32 h-32 md:w-40 md:h-40 rounded-full
-                transition-all duration-300
-                ${
-                  isSelected
-                    ? `bg-${group.bgColor} ring-4 ring-${group.color} shadow-xl`
-                    : `bg-white border-4 border-${group.bgColor} hover:border-${group.color}`
-                }
-              `}
+              className="relative flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 rounded-full transition-all duration-300"
               style={{
-                backgroundColor: isSelected
-                  ? `var(--color-${group.bgColor})`
-                  : "white",
-                borderColor: isSelected
-                  ? `var(--color-${group.color})`
-                  : `var(--color-${group.bgColor})`,
+                backgroundColor: isSelected ? group.solidBgColor : "white",
+                border: `4px solid ${isSelected ? group.solidColor : group.solidBgColor}`,
                 boxShadow: isSelected
-                  ? `0 10px 40px -10px var(--color-${group.color})`
+                  ? `0 10px 40px -10px ${group.solidColor}`
                   : undefined,
               }}
             >
               {/* Icon */}
               <motion.div
-                className={`text-${group.color} mb-2`}
+                style={{ color: group.solidColor }}
                 animate={isSelected ? { rotate: [0, -10, 10, -10, 0] } : {}}
                 transition={{ duration: 0.5 }}
+                className="mb-2"
               >
                 {group.icon}
               </motion.div>
 
               {/* Name */}
               <span
-                className={`font-heading font-bold text-sm md:text-base ${
-                  isSelected ? `text-${group.color}` : "text-charcoal-600"
-                }`}
+                className="font-heading font-bold text-sm md:text-base"
+                style={{
+                  color: isSelected ? group.solidColor : "#2C3E50", 
+                }}
               >
                 {group.name}
               </span>
 
               {/* Age Range */}
-              <span className="text-xs text-charcoal-400 mt-1">
+              <span
+                className="text-xs mt-1"
+                style={{ color: "#455A64" }} 
+              >
                 {group.ageRange}
               </span>
 
@@ -158,9 +161,12 @@ export default function AgeGroupSelector({
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-sunset rounded-full flex items-center justify-center shadow-lg"
+                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center shadow-lg"
+                  style={{
+                    background: "linear-gradient(135deg, #FF6B9D 0%, #FF9A3C 100%)",
+                  }}
                 >
-                  <span className="text-white text-lg">✓</span>
+                  <span className="text-white text-lg font-bold">✓</span>
                 </motion.div>
               )}
 
@@ -169,7 +175,7 @@ export default function AgeGroupSelector({
                 <motion.div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    border: `2px solid var(--color-${group.color})`,
+                    border: `2px solid ${group.solidColor}`,
                   }}
                   animate={{
                     scale: [1, 1.2, 1],
@@ -201,7 +207,7 @@ export default function AgeGroupSelector({
             <div
               className="rounded-3xl p-8 md:p-10 shadow-xl"
               style={{
-                background: `linear-gradient(135deg, var(--color-${selectedGroupData.bgColor}) 0%, white 100%)`,
+                background: `linear-gradient(135deg, ${selectedGroupData.solidBgColor} 0%, white 100%)`,
               }}
             >
               {/* Header */}
@@ -209,8 +215,8 @@ export default function AgeGroupSelector({
                 <div
                   className="p-4 rounded-2xl"
                   style={{
-                    backgroundColor: `var(--color-${selectedGroupData.bgColor})`,
-                    color: `var(--color-${selectedGroupData.color})`,
+                    backgroundColor: selectedGroupData.solidBgColor,
+                    color: selectedGroupData.solidColor,
                   }}
                 >
                   {selectedGroupData.icon}
@@ -240,12 +246,12 @@ export default function AgeGroupSelector({
                       className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-soft"
                     >
                       <div
-                        className="w-2 h-2 rounded-full"
+                        className="w-2 h-2 rounded-full flex-shrink-0"
                         style={{
-                          backgroundColor: `var(--color-${selectedGroupData.color})`,
+                          backgroundColor: selectedGroupData.solidColor,
                         }}
                       ></div>
-                      <span className="text-charcoal-600 font-medium">
+                      <span className="text-charcoal-600 font-medium text-sm md:text-base">
                         {activity}
                       </span>
                     </motion.div>
@@ -261,9 +267,12 @@ export default function AgeGroupSelector({
                 className="mt-8 text-center"
               >
                 <button
-                  className="btn-primary px-8 py-4"
+                  onClick={() => navigate("/academics", { 
+                    state: { programId: selectedGroupData.id } 
+                  })}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
                   style={{
-                    background: `linear-gradient(135deg, var(--color-${selectedGroupData.color}) 0%, var(--color-coral-400) 100%)`,
+                    background: `linear-gradient(135deg, ${selectedGroupData.solidColor} 0%, #FF4081 100%)`,
                   }}
                 >
                   <span>Learn More About {selectedGroupData.name}</span>
@@ -276,8 +285,8 @@ export default function AgeGroupSelector({
       </AnimatePresence>
 
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-sunshine-200 rounded-full blur-3xl opacity-50 animate-float"></div>
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-coral-200 rounded-full blur-3xl opacity-50 animate-float animation-delay-500"></div>
+      <div className="absolute top-10 left-10 w-20 h-20 bg-sunshine-200 rounded-full blur-3xl opacity-50 animate-float pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-32 h-32 bg-coral-200 rounded-full blur-3xl opacity-50 animate-float animation-delay-500 pointer-events-none"></div>
     </div>
   );
 }
