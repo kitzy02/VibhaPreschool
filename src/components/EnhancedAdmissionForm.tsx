@@ -59,7 +59,7 @@ export default function EnhancedAdmissionForm() {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("admissions_enhanced")
         .insert([
           {
