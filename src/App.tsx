@@ -16,6 +16,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 function App() {
   return (
     <ErrorBoundary>
+      {/* Navbar is now INSIDE ErrorBoundary, will get Router context from main.tsx */}
       <Navbar />
       
       <Suspense fallback={<LoadingSpinner />}>
