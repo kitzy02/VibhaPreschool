@@ -11,12 +11,12 @@ const About = lazy(() => import("./pages/About"));
 const Academics = lazy(() => import("./pages/Academics"));
 const Contact = lazy(() => import("./pages/Contact"));
 const AdmissionForm = lazy(() => import("./features/Admissions/AdmissionForm"));
+const EnhancedAdmission = lazy(() => import("./components/EnhancedAdmissionForm"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
     <ErrorBoundary>
-      {/* Navbar is now INSIDE ErrorBoundary, will get Router context from main.tsx */}
       <Navbar />
       
       <Suspense fallback={<LoadingSpinner />}>
@@ -26,12 +26,15 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/academics" element={<Academics />} />
           <Route path="/contact" element={<Contact />} />
-          
-          {/* Admission Form - Dedicated Route */}
+
+          {/* Admission Routes */}
+          {/* Basic admission form (optional) */}
           <Route path="/admissions" element={<AdmissionForm />} />
-          <Route path="/admission" element={<AdmissionForm />} />
-          
-          {/* 404 Not Found - Must be last */}
+
+          {/* Enhanced premium admission page */}
+          <Route path="/admission" element={<EnhancedAdmission />} />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

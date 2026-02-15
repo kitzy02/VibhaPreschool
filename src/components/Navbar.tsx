@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sparkles, Phone } from "lucide-react";
 
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -102,7 +103,7 @@ export default function Navbar() {
 
             {/* CTA Button with Shimmer Effect */}
             <Link
-              to="/contact"
+              to="/admission"
               className="relative overflow-hidden btn-primary group"
             >
               {/* Shimmer Effect */}
@@ -176,7 +177,7 @@ export default function Navbar() {
             
             {/* Mobile CTA Button */}
             <Link
-              to="/contact"
+              to="/admission"
               onClick={() => setIsOpen(false)}
               className="block mt-4"
             >

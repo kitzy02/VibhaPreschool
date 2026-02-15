@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
 import Button from "./Button";
+import { supabase } from "../lib/supabase"; // adjust path if needed
+
 
 interface FormData {
   // Step 1
@@ -56,12 +58,37 @@ export default function EnhancedAdmissionForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const { data, error } = await supabase
+        .from("admissions_enhanced")
+        .insert([
+          {
+            parent_name: formData.parentName,
+            phone: formData.phone,
+            email: formData.email,
+            child_name: formData.childName,
+            child_age: formData.childAge
+              ? Number(formData.childAge)
+              : null,
+            grade: formData.grade,
+            tour_date: formData.tourDate || null,
+            tour_time: formData.tourTime || null,
+            message: formData.message || null,
+          },
+        ]);
+
+      if (error) throw error;
+
       setIsSuccess(true);
-    }, 2000);
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      alert(err.message || "Something went wrong.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+
 
   const progressPercentage = (currentStep / totalSteps) * 100;
 
