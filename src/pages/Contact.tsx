@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle, Mail, MapPin, Send } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 export default function EnhancedContact() {
   const [formData, setFormData] = useState({
@@ -45,16 +46,30 @@ export default function EnhancedContact() {
     }
   ];
 
-  // SECTION 2: Enhanced Contact Form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // API call here
-    setTimeout(() => {
+
+    const { error } = await supabase.from("contacts").insert([
+      {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      },
+    ]);
+
+    if (error) {
+      console.error("Supabase Error:", error.message);
+      alert("Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    } else {
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 2000);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-cream-50">
