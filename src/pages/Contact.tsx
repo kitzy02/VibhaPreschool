@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, MessageCircle, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, MessageCircle, Mail, MapPin, Send } from "lucide-react";
 
 export default function EnhancedContact() {
   const [formData, setFormData] = useState({

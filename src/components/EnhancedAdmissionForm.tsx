@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, ArrowRight, ArrowLeft, Upload, Calendar } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
 import Button from "./Button";
 
 interface FormData {

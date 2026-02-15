@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export default function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">

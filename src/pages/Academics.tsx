@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen, Globe, Palette, Calculator, Beaker, Music,
   Users, Heart, Trophy, Target, Lightbulb, Award,
-  Clock, CheckCircle, TrendingUp, Star, Calendar, Play
+  Clock, CheckCircle, Star, Calendar, Play
 } from "lucide-react";
 
 // Program data
@@ -200,7 +200,6 @@ const teachingMethods = [
 
 export default function EnhancedAcademics() {
   const [selectedProgram, setSelectedProgram] = useState("nursery");
-  const [activeMethod, setActiveMethod] = useState(0);
 
   const currentProgram = programs.find(p => p.id === selectedProgram) || programs[0];
 

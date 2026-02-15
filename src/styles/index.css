@@ -194,7 +194,7 @@
   
   /* Button Outline */
   .btn-outline {
-    @apply btn bg-transparent border-3 border-charcoal-600 text-charcoal-600
+    @apply btn bg-transparent border-4 border-charcoal-600 text-charcoal-600
            hover:bg-charcoal-600 hover:text-white
            focus:ring-charcoal-300;
   }

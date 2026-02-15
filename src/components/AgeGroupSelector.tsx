@@ -63,7 +63,6 @@ export default function AgeGroupSelector({
   className = "",
 }: AgeGroupSelectorProps) {
   const [selected, setSelected] = useState(selectedGroup);
-  const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
 
   const handleSelect = (groupId: string) => {
     setSelected(groupId);
@@ -94,7 +93,6 @@ export default function AgeGroupSelector({
       <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
         {ageGroups.map((group, index) => {
           const isSelected = selected === group.id;
-          const isHovered = hoveredGroup === group.id;
 
           return (
             <motion.button
@@ -110,8 +108,6 @@ export default function AgeGroupSelector({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleSelect(group.id)}
-              onMouseEnter={() => setHoveredGroup(group.id)}
-              onMouseLeave={() => setHoveredGroup(null)}
               className={`
                 relative flex flex-col items-center justify-center
                 w-32 h-32 md:w-40 md:h-40 rounded-full

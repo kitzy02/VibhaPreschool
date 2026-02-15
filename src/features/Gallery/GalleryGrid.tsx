@@ -98,7 +98,6 @@ export default function GalleryGrid({
   className = "",
 }: GalleryGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<GalleryCategory>("all");
-  const [isGridView, setIsGridView] = useState(true);
 
   // Filter images by category
   const filteredImages =
