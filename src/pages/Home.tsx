@@ -5,7 +5,14 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import the styles for AOS
 import AdmissionForm from "../features/Admissions/AdmissionForm"
 import CurriculumSection from "../features/Curriculum/CurriculumSection"
-import GalleryGrid from "../features/Gallery/GalleryGrid"
+import Card from './components/Card';
+import AgeGroupSelector from './components/AgeGroupSelector';
+import TestimonialCarousel from './components/TestimonialCarousel';
+import CountdownTimer from './components/CountdownTimer';
+import FloatingCTA from './components/FloatingCTA';
+import GalleryGrid from './components/GalleryGrid';
+import GalleryLightbox from './components/GalleryLightbox';
+import EnhancedAdmissionForm from './components/EnhancedAdmissionForm';
 
 
 const Home = () => {
@@ -194,6 +201,99 @@ const Home = () => {
 
       {/* CTA Admission */}
       <AdmissionForm />
+      {/* Hero with Age Selector */}
+      <section>
+        <AgeGroupSelector />
+      </section>
+
+      {/* Stats Section */}
+      <section className="grid md:grid-cols-4 gap-6">
+        <Card variant="stat" title="Students" stat={{value: "500+", label: "Happy Students"}} />
+        <Card variant="stat" title="Teachers" stat={{value: "50+", label: "Expert Educators"}} />
+        <Card variant="stat" title="Years" stat={{value: "15+", label: "Of Excellence"}} />
+        <Card variant="stat" title="Success" stat={{value: "98%", label: "Pass Rate"}} />
+      </section>
+
+      {/* Features */}
+      <section className="grid md:grid-cols-3 gap-6">
+        <Card variant="featured" title="Montessori Method" ... />
+        <Card variant="default" title="Playway Learning" ... />
+        <Card variant="default" title="Individual Attention" ... />
+      </section>
+
+      {/* Testimonials */}
+      <TestimonialCarousel />
+
+      {/* Gallery */}
+      <GalleryGrid
+        onImageClick={(img) => {
+          setLightboxIndex(galleryImages.findIndex(i => i.id === img.id));
+          setLightboxOpen(true);
+        }}
+      />
+
+      {/* Lightbox */}
+      <GalleryLightbox
+        images={galleryImages}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
+
+      {/* Countdown */}
+      <CountdownTimer targetDate={new Date('2025-03-31')} />
+
+      {/* Admission Form */}
+      <EnhancedAdmissionForm />
+
+      {/* Floating CTA */}
+      <FloatingCTA />
+
+      {/* 1. Hero Section with Video Background */}
+      <HeroSection />
+      
+      {/* 2. Age Group Selector */}
+      <AgeGroupSelector />
+      
+      {/* 3. Why Choose Us - 6 Cards */}
+      <section className="section-py">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2>Why Choose Vibha?</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card variant="featured" title="Experienced Faculty" ... />
+            <Card variant="default" title="Modern Facilities" ... />
+            <Card variant="default" title="Holistic Development" ... />
+            {/* 3 more cards */}
+          </div>
+        </div>
+      </section>
+      
+      {/* 4. Stats Section with Counter Animation */}
+      <section className="bg-gradient-sunset text-white">
+        {/* Counter animations */}
+      </section>
+      
+      {/* 5. Programs Overview */}
+      <section>
+        {/* 4 program cards */}
+      </section>
+      
+      {/* 6. Testimonials Carousel */}
+      <TestimonialCarousel />
+      
+      {/* 7. Gallery Preview */}
+      <GalleryGrid images={sampleImages.slice(0, 6)} />
+      
+      {/* 8. Countdown to Admission */}
+      <CountdownTimer targetDate={new Date('2025-03-31')} />
+      
+      {/* 9. CTA Section */}
+      <section className="bg-gradient-to-br from-coral-400 to-lavender-400">
+        {/* Large CTA */}
+      </section>
+      
+      {/* 10. Floating CTA */}
+      <FloatingCTA />
     </>
   );
 };
