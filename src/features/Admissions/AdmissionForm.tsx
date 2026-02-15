@@ -2,6 +2,7 @@
 import { useState } from "react";
 // Ensure this path is correct based on your folder structure
 import Button from "../../components/Button";
+import { supabase } from "../../lib/supabase";
 
 export default function AdmissionForm() {
   const [formData, setFormData] = useState({
@@ -14,11 +15,30 @@ export default function AdmissionForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    alert("Admission form submitted!");
+
+    const { error } = await supabase.from("admissions").insert([
+      {
+        parent_name: formData.parentName,
+        child_name: formData.childName,
+        phone: formData.phone,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error submitting form:", error.message);
+      alert("Something went wrong. Please try again.");
+    } else {
+      alert("Admission form submitted successfully!");
+      setFormData({
+        parentName: "",
+        childName: "",
+        phone: "",
+      });
+    }
   };
+
 
   return (
     <section className="py-16 bg-white">
