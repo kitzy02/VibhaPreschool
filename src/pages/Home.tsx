@@ -252,7 +252,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl text-charcoal-600 mb-4">
-              <span className="inline-block animate-bounce-slow">🌟</span> Our Special Features
+              Our Special Features
             </h2>
             <p className="font-body text-base sm:text-lg text-charcoal-400 mb-12 sm:mb-16 max-w-2xl mx-auto">
               A joyful environment designed to nurture creativity, learning, and growth.

@@ -15,9 +15,9 @@ export default function EnhancedContact() {
     {
       icon: <Phone />,
       title: "Call Us",
-      primary: "+91 98765 43210",
-      secondary: "+91 98765 43211",
-      action: "tel:+919876543210",
+      primary: "+91 99516 43717",
+      secondary: "+91 96033 34427",
+      action: "tel:+919951643717",
       color: "green"
     },
     {
@@ -25,7 +25,7 @@ export default function EnhancedContact() {
       title: "WhatsApp",
       primary: "Chat with us",
       secondary: "Quick response",
-      action: "https://wa.me/919876543210",
+      action: "https://wa.me/919951643717",
       color: "green"
     },
     {
@@ -39,7 +39,7 @@ export default function EnhancedContact() {
     {
       icon: <MapPin />,
       title: "Visit Us",
-      primary: "123 Main St, City",
+      primary: "Padmavathi Nilayam,Hyderabad 500050",
       secondary: "Mon-Sat: 8:30 AM - 3:00 PM",
       action: "#map",
       color: "coral"

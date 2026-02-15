@@ -1,21 +1,36 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Mail, Phone, MapPin, Clock, Send, Heart, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "../lib/supabase"; 
+
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setEmail("");
-        setSubscribed(false);
-      }, 3000);
+
+    if (!email) return;
+
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .insert([{ email }]);
+
+    if (error) {
+      console.error("Subscription error:", error.message);
+      alert("Something went wrong. Please try again.");
+      return;
     }
+
+    setSubscribed(true);
+
+    setTimeout(() => {
+      setEmail("");
+      setSubscribed(false);
+    }, 3000);
   };
+
 
   const quickLinks = [
     { name: "Home", path: "/" },
@@ -186,16 +201,16 @@ export default function Footer() {
                 <li className="flex items-start gap-3 text-charcoal-400 group hover:text-skyBlue-500 transition-colors duration-300">
                   <MapPin className="w-5 h-5 mt-0.5 text-skyBlue-500 group-hover:animate-bounce" />
                   <span className="text-sm leading-relaxed">
-                    123 Main Street, Your City<br />State, India - 123456
+                    Padmavathi Nilayam,Gangaram, Chandanagar,Hyderabad<br />Telangana, India - 500050
                   </span>
                 </li>
                 <li>
                   <a 
-                    href="tel:+919876543210" 
+                    href="tel:+919951643717" 
                     className="flex items-center gap-3 text-charcoal-400 group hover:text-green-500 transition-colors duration-300"
                   >
                     <Phone className="w-5 h-5 text-green-500 group-hover:animate-wiggle" />
-                    <span className="text-sm font-medium">+91 98765 43210</span>
+                    <span className="text-sm font-medium">+91 99516 43717</span>
                   </a>
                 </li>
                 <li>
@@ -243,11 +258,6 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-charcoal-400 text-center md:text-left">
                 © {new Date().getFullYear()} Vibha Preschool. All rights reserved.
-                <span className="hidden md:inline"> | </span>
-                <br className="md:hidden" />
-                <span className="text-charcoal-300">Designed with </span>
-                <Heart className="w-4 h-4 inline text-coral-500 fill-current animate-pulse" />
-                <span className="text-charcoal-300"> for children</span>
               </p>
               
               <div className="flex gap-4 text-sm">
