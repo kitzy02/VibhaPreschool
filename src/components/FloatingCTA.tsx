@@ -20,10 +20,10 @@ interface FloatingCTAProps {
 }
 
 export default function FloatingCTA({
-  phoneNumber = "+919876543210",
-  whatsappNumber = "+919876543210",
+  phoneNumber = "+919951643717",
+  whatsappNumber = "+919951643717",
   email = "info@vibhainternational.com",
-  mapsUrl = "https://maps.google.com",
+  mapsUrl = "https://www.google.com/maps/place/Padmavathi+Nilayam/@17.4930924,78.3278894,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb928c4a0eb85f:0x3104aed8b291c811!8m2!3d17.4930873!4d78.3304643!16s%2Fg%2F11fz9wypzj?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D",
   className = "",
 }: FloatingCTAProps) {
   const [isExpanded, setIsExpanded] = useState(false);
